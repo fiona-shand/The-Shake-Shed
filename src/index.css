@@ -1,23 +1,59 @@
 :root {
-  --font-display: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
-  --font-body: 'DM Sans', system-ui, -apple-system, sans-serif;
+  --font-display: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --font-brand: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --font-body: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
 
-  --color-bg: #f6f3ee;
-  --color-bg-deep: #ebe6df;
-  --color-text: #1c1b19;
-  --color-muted: rgba(28, 27, 25, 0.62);
-  --color-border: rgba(28, 27, 25, 0.12);
-  --color-inverse: #141311;
-  --color-accent: #8b7355;
+  --color-bg: #faf9f7;
+  --color-bg-subtle: #f5f3ef;
+  --color-bg-muted: #ebe8e3;
+  --color-bg-elevated: rgba(250, 249, 247, 0.94);
+  --color-text: #2a2826;
+  --color-muted: rgba(42, 40, 38, 0.52);
+  --color-border: rgba(42, 40, 38, 0.09);
+  --color-inverse: #1a1918;
+
+  /* Rhode-adjacent — cream, mushroom, quiet taupe (no loud pink) */
+  --gradient-accent: linear-gradient(
+    118deg,
+    #ebe6e1 0%,
+    #cfc7bf 46%,
+    #b5aaa2 90%
+  );
+  --gradient-accent-soft:
+    radial-gradient(ellipse 88% 74% at 88% 8%, rgba(235, 228, 220, 0.65), transparent 58%),
+    radial-gradient(ellipse 74% 58% at 10% 90%, rgba(218, 209, 200, 0.38), transparent 54%);
+  --gradient-text: linear-gradient(
+    118deg,
+    #3f3a37 0%,
+    #6d6560 44%,
+    #9c918a 92%
+  );
+  --gradient-focus: linear-gradient(
+    118deg,
+    rgba(218, 209, 200, 0.55),
+    rgba(181, 170, 162, 0.28),
+    rgba(148, 138, 130, 0.18)
+  );
+
+  --color-accent: #6b625c;
+  --color-accent-rich: #524a45;
+  --color-accent-soft: rgba(107, 98, 92, 0.12);
+
+  --hero-bg: #faf9f7;
+  --hero-fg: var(--color-text);
+  --hero-fg-soft: rgba(42, 40, 38, 0.54);
 
   --space-xs: 0.5rem;
   --space-sm: 1rem;
   --space-md: 1.75rem;
   --space-lg: 3rem;
-  --space-xl: clamp(3rem, 8vw, 6rem);
+  --space-xl: clamp(3.25rem, 9vw, 7rem);
 
-  --max-content: 1120px;
-  --header-h: 4.25rem;
+  --max-content: 1180px;
+  --header-h: 4rem;
+  --radius-sm: 12px;
+  --radius-lg: 26px;
+  --ease-out: cubic-bezier(0.33, 1, 0.68, 1);
 }
 
 *,
@@ -36,8 +72,8 @@ body {
   font-family: var(--font-body);
   font-size: 15px;
   font-weight: 400;
-  line-height: 1.55;
-  letter-spacing: 0.02em;
+  line-height: 1.68;
+  letter-spacing: 0.01em;
   color: var(--color-text);
   background: var(--color-bg);
   -webkit-font-smoothing: antialiased;
