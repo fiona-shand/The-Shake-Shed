@@ -1,5 +1,6 @@
 :root {
-  --font-display: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --font-display: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+  --font-serif: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
   --font-brand: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
   --font-body: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
 
@@ -11,6 +12,7 @@
   --color-muted: rgba(42, 40, 38, 0.52);
   --color-border: rgba(42, 40, 38, 0.09);
   --color-inverse: #1a1918;
+  --color-logo: #b85c3c;
 
   /* Rhode-adjacent — cream, mushroom, quiet taupe (no loud pink) */
   --gradient-accent: linear-gradient(

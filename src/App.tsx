@@ -2,11 +2,16 @@ import './App.css'
 
 import imgHydrate from './assets/hydrate.png'
 import imgBananaBread from './assets/bananabread.png'
+import imgPBChocolate from './assets/PBChocolate.png'
 import imgPower from './assets/power.png'
 import imgBerryBlast from './assets/berryblast.png'
 import imgDefense from './assets/defense.png'
-import imgShakes from './assets/shakes.png'
-import imgProteinBalls from './assets/proteinballs.png'
+import imgHero from './assets/hero.png'
+import imgStack from './assets/stack.png'
+import imgModel from './assets/model.png'
+import imgModel2 from './assets/model2.png'
+import imgModel3 from './assets/model3.png'
+import imgModel4 from './assets/model4.png'
 
 /** Official Instagram — orders & updates */
 const INSTAGRAM_URL = 'https://www.instagram.com/theshakeshed_____/'
@@ -22,6 +27,16 @@ const STOCKISTS = [
   },
 ] as const
 
+function productSlug(title: string): string {
+  if (title.startsWith('Defence')) return 'defence'
+  if (title.startsWith('Hydrate')) return 'hydrate'
+  if (title.includes('Chocolate PB')) return 'chocolate pb'
+  if (title.includes('Banana bread')) return 'banana bread'
+  if (title.startsWith('Berry')) return 'berry blast'
+  if (title.startsWith('Power')) return 'power'
+  return title.toLowerCase()
+}
+
 const menuItems = [
   {
     title: 'Hydrate juice',
@@ -34,8 +49,15 @@ const menuItems = [
     title: 'Banana bread protein ball',
     caption: 'The perfect grab-and-go breakfast snack.',
     detail:
-      'Packed with nourishing ingredients to keep you fuelled throughout the day — all the flavour of banana bread in one bite.',
+      'Packed with nourishing ingredients to keep you fuelled throughout your day — all the flavour of banana bread in one bite.',
     image: imgBananaBread,
+  },
+  {
+    title: 'Chocolate PB protein ball',
+    caption: 'Need an afternoon sweet treat without the crash? We got you.',
+    detail:
+      'The perfect pick-me-up, packed with feel-good ingredients and all the flavour of a chocolate peanut butter treat — peanut butter, crisped rice, honey, dates, chocolate, protein, coconut oil & sea salt.',
+    image: imgPBChocolate,
   },
   {
     title: 'Power protein shake',
@@ -58,126 +80,126 @@ const menuItems = [
       'Made with powerful, feel-good ingredients to refresh and defend your body naturally — ideal when you’re under the weather or resetting your morning.',
     image: imgDefense,
   },
-]
+] as const
+
+const SHOWCASE_PRIMARY = ['Defence juice', 'Hydrate juice', 'Banana bread protein ball'] as const
+const SHOWCASE_SECONDARY = [
+  'Power protein shake',
+  'Berry Blast protein shake',
+  'Chocolate PB protein ball',
+] as const
 
 export default function App() {
+  const primaryFeatured = SHOWCASE_PRIMARY.map((t) => menuItems.find((m) => m.title === t)!)
+  const secondaryFeatured = SHOWCASE_SECONDARY.map((t) => menuItems.find((m) => m.title === t)!)
+
+  const wildShots = [
+    { src: imgModel, alt: 'The Shake Shed — out in the wild' },
+    { src: imgModel3, alt: 'The Shake Shed lifestyle' },
+    { src: imgModel2, alt: 'The Shake Shed in everyday moments' },
+    { src: imgModel4, alt: 'Sharing The Shake Shed' },
+  ] as const
+
   return (
     <div className="page">
       <a href="#main" className="skip-link">
         Skip to content
       </a>
 
-      <header className="site-header">
-        <nav className="nav nav--left" aria-label="Primary">
-          <a href="#menu">menu</a>
-          <a href="#story">story</a>
-        </nav>
-        <a href="#" className="logo">
-          the shake shed
-        </a>
-        <nav className="nav nav--right" aria-label="Order & stockists">
-          <a href="#stockists">stockists</a>
-          <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer">
-            instagram
+      <div className="header-stack">
+        <div className="top-bar" aria-hidden="true">
+          <svg className="top-bar__icon" width="14" height="14" viewBox="0 0 14 14" fill="none">
+            <rect x="0" y="0" width="6" height="6" rx="1" fill="currentColor" />
+            <rect x="8" y="0" width="6" height="6" rx="1" fill="currentColor" />
+            <rect x="0" y="8" width="6" height="6" rx="1" fill="currentColor" />
+            <rect x="8" y="8" width="6" height="6" rx="1" fill="currentColor" />
+          </svg>
+        </div>
+
+        <header className="site-header">
+          <nav className="nav nav--left" aria-label="Primary">
+            <a href="#menu">menu</a>
+            <a href="#story">story</a>
+          </nav>
+          <a href="#" className="logo logo--mark">
+            the shake shed
           </a>
-        </nav>
-      </header>
+          <nav className="nav nav--right" aria-label="Order & stockists">
+            <a href="#stockists">stockists</a>
+            <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer">
+              instagram
+            </a>
+          </nav>
+        </header>
+      </div>
 
       <main id="main">
-        <section className="hero" aria-labelledby="hero-heading">
-          <div className="hero__ambient" aria-hidden="true">
-            <div className="hero__blob hero__blob--a" />
-            <div className="hero__blob hero__blob--b" />
+        {/* Wireframe hero: dual lifestyle images + centred intro */}
+        <section className="wf-hero" aria-labelledby="wf-intro-heading">
+          <div className="wf-hero__dual">
+            <figure className="wf-hero__figure">
+              <img
+                src={imgHero}
+                alt="The Shake Shed"
+                className="wf-hero__img"
+                width={900}
+                height={1125}
+                decoding="async"
+                fetchPriority="high"
+              />
+            </figure>
+            <figure className="wf-hero__figure">
+              <img
+                src={imgStack}
+                alt="The Shake Shed — The Stack Shed & stockists"
+                className="wf-hero__img"
+                width={900}
+                height={1125}
+                decoding="async"
+                fetchPriority="high"
+              />
+            </figure>
           </div>
-          <div className="hero__layout">
-            <div className="hero__content">
-              <p className="eyebrow eyebrow--hero">
-                <span className="eyebrow__dot" aria-hidden="true" />
-                Fresh juices · Protein shakes · Protein balls
-              </p>
-              <h1 id="hero-heading" className="hero__title">
-                Built for gym mornings, busy afternoons{' '}
-                <span className="hero__gradient-word">and everything in between.</span>
-              </h1>
-              <p className="hero__lede">
-                We make all of our products with high-quality ingredients that taste amazing and leave you feeling your best.
-                Now available for local delivery — DM us on{' '}
-                <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" className="link-instagram">
-                  Instagram
-                </a>{' '}
-                to order.
-              </p>
-              <div className="hero__actions">
-                <a
-                  href={INSTAGRAM_URL}
-                  className="btn btn--primary"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  DM to order
-                </a>
-                <a href="#menu" className="btn btn--ghost">
-                  See the menu
-                </a>
-              </div>
+          <div className="wf-hero__below">
+            <h1 id="wf-intro-heading" className="visually-hidden">
+              The Shake Shed — fresh juices, shakes & protein balls
+            </h1>
+            <p className="wf-hero__intro">
+              We make all of our products with high-quality ingredients that taste amazing and leave you feeling your best.
+              Now available for local delivery — DM us on{' '}
+              <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" className="link-instagram">
+                Instagram
+              </a>{' '}
+              to order.
+            </p>
+            <div className="wf-hero__actions">
+              <a
+                href={INSTAGRAM_URL}
+                className="btn btn--primary"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                DM to order
+              </a>
+              <a href="#menu" className="btn btn--ghost">
+                See the menu
+              </a>
             </div>
-            <div className="hero__rail">
-              <figure className="hero__figure">
-                <img
-                  src={imgShakes}
-                  alt="The Shake Shed protein shakes"
-                  className="hero__figure-img hero__figure-img--main"
-                  width={720}
-                  height={900}
-                  decoding="async"
-                  fetchPriority="high"
-                />
-                <img
-                  src={imgProteinBalls}
-                  alt=""
-                  className="hero__figure-img hero__figure-img--accent"
-                  width={360}
-                  height={360}
-                  decoding="async"
-                  aria-hidden={true}
-                />
-              </figure>
-              <aside className="hero__aside" aria-label="Where to find us">
-                <p className="hero__aside-label">Available now</p>
-                <p className="hero__aside-text">
-                  Pick up alongside our friends at{' '}
-                  <a
-                    href={STOCKISTS[0].href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="hero__aside-link"
-                  >
-                    {STOCKISTS[0].label}
-                  </a>{' '}
-                  and{' '}
-                  <a
-                    href={STOCKISTS[1].href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="hero__aside-link"
-                  >
-                    {STOCKISTS[1].label}
-                  </a>
-                  .
-                </p>
-                <div className="hero__aside-line" aria-hidden="true" />
-              </aside>
+            <div id="story" className="wf-balance">
+              <p className="wf-balance__lead">Helping you get the balance right.</p>
+              <p className="wf-balance__sub">Protein balls that taste like a treat.</p>
+              <p className="wf-balance__body">
+                Juices that drive your routine and spice up your Friday night. Shake it up… put your own twist on them.
+              </p>
             </div>
           </div>
         </section>
 
-        <section className="marquee" aria-hidden="true">
+        <section className="marquee marquee--wired" aria-hidden="true">
           <div className="marquee__fade marquee__fade--left" />
           <div className="marquee__fade marquee__fade--right" />
           <div className="marquee__track">
-            <span>Fresh juices · Protein shakes · Protein balls</span>
-            <span aria-hidden="true"> · </span>
-            <span>Local delivery · juices &amp; protein balls</span>
+            <span>Juices &amp; protein balls</span>
             <span aria-hidden="true"> · </span>
             <span>DM for orders</span>
             <span aria-hidden="true"> · </span>
@@ -185,157 +207,99 @@ export default function App() {
             <span aria-hidden="true"> · </span>
             <span>Available @thestackshed</span>
             <span aria-hidden="true"> · </span>
-            <span>Fresh juices · Protein shakes · Protein balls</span>
+            <span>Local delivery</span>
             <span aria-hidden="true"> · </span>
-            <span>Local delivery · juices &amp; protein balls</span>
+            <span>Juices &amp; protein balls</span>
             <span aria-hidden="true"> · </span>
             <span>DM for orders</span>
             <span aria-hidden="true"> · </span>
             <span>Available @ruralhealthandfitness</span>
             <span aria-hidden="true"> · </span>
             <span>Available @thestackshed</span>
+            <span aria-hidden="true"> · </span>
+            <span>Local delivery</span>
           </div>
         </section>
 
-        <section id="story" className="split split--image-right">
-          <div className="split__panel split__panel--copy">
-            <span className="split__index" aria-hidden="true">
-              01
-            </span>
-            <p className="eyebrow">The vibe</p>
-            <h2 className="section-title">
-              Discover the ingredients and wellness behind every Shake Shed product.
-            </h2>
-            <p className="body-copy">
-              From fresh juices to protein shakes and protein balls, everything is designed to give you a quick, refreshing and energising refuel throughout your day.
-            </p>
-            <p className="body-copy muted">
-              Local delivery is available for juices and protein balls.
-              Members of{' '}
-              <a href={STOCKISTS[0].href} target="_blank" rel="noopener noreferrer" className="inline-link">
-                {STOCKISTS[0].label}
-              </a>{' '}
-              can grab yours at{' '}
-              <a href={STOCKISTS[1].href} target="_blank" rel="noopener noreferrer" className="inline-link">
-                {STOCKISTS[1].label}
-              </a>{' '}
-              or order via DM on{' '}
-              <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" className="link-instagram">
-                Instagram
-              </a>
-              .
-            </p>
-          </div>
-          <div className="split__panel split__panel--visual">
-            <div className="photo-card photo-card--photo photo-card--tilt-right">
-              <img
-                src={imgHydrate}
-                alt="Hydrate juice by The Shake Shed"
-                className="photo-card__img"
-                width={720}
-                height={900}
-                loading="lazy"
-                decoding="async"
-              />
-              <div className="photo-card__scrim" aria-hidden="true" />
-              <span className="photo-card__shine" aria-hidden="true" />
-              <span className="photo-card__label">Hydrate juice</span>
-            </div>
-          </div>
-        </section>
-
-        <section id="menu" className="categories">
-          <div className="categories__intro">
-            <span className="categories__index" aria-hidden="true">
-              02
-            </span>
-            <p className="eyebrow">On the menu</p>
-            <h2 className="section-title section-title--center">
-              Juices, shakes &amp; bites — made to taste amazing.
-            </h2>
-          </div>
-          <ul className="category-grid">
-            {menuItems.map((item, i) => (
-              <li key={item.title} className="category-card">
-                <div className="category-card__media">
-                  <img
-                    src={item.image}
-                    alt={`${item.title} — The Shake Shed`}
-                    width={960}
-                    height={660}
-                    loading="lazy"
-                    decoding="async"
-                  />
+        {/* Featured product row (wireframe trio) */}
+        <section id="menu" className="wf-menu" aria-labelledby="menu-heading">
+          <h2 id="menu-heading" className="visually-hidden">
+            Menu highlights
+          </h2>
+          <div className="wf-showcase">
+            {primaryFeatured.map((item) => (
+              <article key={item.title} className="wf-card">
+                <div className="wf-card__media">
+                  <img src={item.image} alt={`${item.title}`} width={640} height={720} loading="lazy" decoding="async" />
                 </div>
-                <div className="category-card__body">
-                  <span className="category-card__num" aria-hidden="true">
-                    {String(i + 1).padStart(2, '0')}
+                <header className="wf-card__head">
+                  <h3 className="wf-card__title">{productSlug(item.title)}</h3>
+                </header>
+                <p className="wf-card__caption">{item.caption}</p>
+              </article>
+            ))}
+          </div>
+          <div className="wf-showcase wf-showcase--secondary">
+            {secondaryFeatured.map((item) => (
+              <article key={item.title} className="wf-card wf-card--compact">
+                <div
+                  className={`wf-card__media${item.title.startsWith('Power') ? ' wf-card__media--power' : ''}${item.title.startsWith('Berry') ? ' wf-card__media--anchor-bottom' : ''}`}
+                >
+                  <img src={item.image} alt={`${item.title}`} width={640} height={720} loading="lazy" decoding="async" />
+                </div>
+                <header className="wf-card__head">
+                  <h3 className="wf-card__title">{productSlug(item.title)}</h3>
+                </header>
+                <p className="wf-card__caption">{item.caption}</p>
+              </article>
+            ))}
+          </div>
+          <div className="wf-menu__cta">
+            <a href={INSTAGRAM_URL} className="btn btn--primary" target="_blank" rel="noopener noreferrer">
+              DM to order
+            </a>
+            <a href="#full-menu" className="btn btn--ghost">
+              See the menu
+            </a>
+          </div>
+          <div id="full-menu" className="wf-menu-all">
+            <h3 className="wf-menu-all__heading">Full menu</h3>
+            <ul className="wf-menu-all__list">
+              {menuItems.map((item) => (
+                <li key={item.title}>
+                  <span className="wf-menu-all__name">{item.title}</span>
+                  <span className="wf-menu-all__sep" aria-hidden="true">
+                    —
                   </span>
-                  <h3 className="category-card__title">{item.title}</h3>
-                  <p className="category-card__caption">{item.caption}</p>
-                  <p className="category-card__detail">{item.detail}</p>
-                </div>
+                  <span className="wf-menu-all__detail">{item.detail}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+
+        <section className="wf-social" aria-labelledby="social-heading">
+          <div className="wf-social__top">
+            <h2 id="social-heading" className="wf-social__heading">
+              the shake shed in the wild
+            </h2>
+            <a href={INSTAGRAM_URL} className="btn btn--wired-outline" target="_blank" rel="noopener noreferrer">
+              Find us on social
+            </a>
+          </div>
+          <ul className="wf-social__grid">
+            {wildShots.map((shot) => (
+              <li key={shot.alt} className="wf-social__cell">
+                <img src={shot.src} alt={shot.alt} width={560} height={560} loading="lazy" decoding="async" />
               </li>
             ))}
           </ul>
         </section>
 
-        <blockquote className="pull-quote">
-          <span className="pull-quote__mark" aria-hidden="true">
-            ”
-          </span>
-          <p>
-            &ldquo;High-quality ingredients that taste amazing — and leave you feeling your best.&rdquo;
-          </p>
-          <footer>— The Shake Shed</footer>
-        </blockquote>
-
-        <section className="split split--image-left">
-          <div className="split__panel split__panel--visual">
-            <div className="photo-card photo-card--photo photo-card--tilt-left">
-              <img
-                src={imgDefense}
-                alt="Defence juice by The Shake Shed"
-                className="photo-card__img"
-                width={720}
-                height={900}
-                loading="lazy"
-                decoding="async"
-              />
-              <div className="photo-card__scrim" aria-hidden="true" />
-              <span className="photo-card__shine" aria-hidden="true" />
-              <span className="photo-card__label">Defence juice</span>
-            </div>
-          </div>
-          <div className="split__panel split__panel--copy">
-            <span className="split__index" aria-hidden="true">
-              03
-            </span>
-            <p className="eyebrow">Orders</p>
-            <h2 className="section-title">
-              DM us — we&apos;ll handle the rest.
-            </h2>
-            <ul className="checklist">
-              <li>Message{' '}
-                <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" className="link-instagram">
-                  @theshakeshed_____
-                </a>{' '}
-                on Instagram to place an order.</li>
-              <li>Local delivery available on juices and protein balls.</li>
-              <li>Grab yours in person at our stockists below.</li>
-            </ul>
-          </div>
-        </section>
-
         <section id="stockists" className="partner">
           <div className="partner__inner">
-            <span className="partner__index" aria-hidden="true">
-              04
-            </span>
             <p className="eyebrow partner__eyebrow">Find us</p>
-            <h2 className="partner__title">
-              Available now — tap in with our partners.
-            </h2>
+            <h2 className="partner__title">Available now — tap in with our partners.</h2>
             <p className="partner__copy">
               Proudly launched inside The Stack Shed — our first stockist, with many more to come. Follow{' '}
               <a href={STOCKISTS[1].href} target="_blank" rel="noopener noreferrer" className="partner__inline-link">
@@ -352,7 +316,7 @@ export default function App() {
                 </li>
               ))}
             </ul>
-            <a href={INSTAGRAM_URL} className="btn btn--primary" target="_blank" rel="noopener noreferrer">
+            <a href={INSTAGRAM_URL} className="partner__follow" target="_blank" rel="noopener noreferrer">
               Follow The Shake Shed
             </a>
           </div>
@@ -393,54 +357,50 @@ export default function App() {
         </section>
       </main>
 
-      <footer className="site-footer">
+      <footer className="site-footer site-footer--wired">
         <div className="footer__brand">
-          <a href="#" className="logo logo--footer">
+          <a href="#" className="logo logo--footer logo--mark logo--footer-mark">
             the shake shed
           </a>
           <p className="footer__tagline muted">
             Fresh juices · Protein shakes · Protein balls · Local delivery · DM for orders
           </p>
+          <p className="footer__legal muted">&copy; {new Date().getFullYear()} The Shake Shed.</p>
         </div>
-        <div className="footer__cols">
-          <div>
-            <p className="footer__heading">Explore</p>
-            <ul className="footer__links">
-              <li>
-                <a href="#menu">menu</a>
-              </li>
-              <li>
-                <a href="#story">story</a>
-              </li>
-              <li>
-                <a href="#stockists">stockists</a>
-              </li>
-            </ul>
-          </div>
-          <div>
-            <p className="footer__heading">Instagram</p>
-            <ul className="footer__links">
-              <li>
-                <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer">
-                  @theshakeshed_____
-                </a>
-              </li>
-              <li>
-                <a href={STOCKISTS[0].href} target="_blank" rel="noopener noreferrer">
-                  {STOCKISTS[0].label}
-                </a>
-              </li>
-              <li>
-                <a href={STOCKISTS[1].href} target="_blank" rel="noopener noreferrer">
-                  {STOCKISTS[1].label}
-                </a>
-              </li>
-            </ul>
-          </div>
+        <div className="footer__col footer__explore">
+          <p className="footer__heading">Explore</p>
+          <ul className="footer__links">
+            <li>
+              <a href="#menu">menu</a>
+            </li>
+            <li>
+              <a href="#story">story</a>
+            </li>
+            <li>
+              <a href="#stockists">stockists</a>
+            </li>
+          </ul>
         </div>
-        <p className="footer__legal muted">
-          © {new Date().getFullYear()} The Shake Shed.
-        </p>
+        <div className="footer__col footer__ig">
+          <p className="footer__heading">Instagram</p>
+          <ul className="footer__links">
+            <li>
+              <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer">
+                @theshakeshed_____
+              </a>
+            </li>
+            <li>
+              <a href={STOCKISTS[0].href} target="_blank" rel="noopener noreferrer">
+                {STOCKISTS[0].label}
+              </a>
+            </li>
+            <li>
+              <a href={STOCKISTS[1].href} target="_blank" rel="noopener noreferrer">
+                {STOCKISTS[1].label}
+              </a>
+            </li>
+          </ul>
+        </div>
       </footer>
     </div>
   )
