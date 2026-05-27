@@ -56,21 +56,39 @@ const menuItems = [
     title: 'Chocolate PB protein ball',
     caption: 'Need an afternoon sweet treat without the crash? We got you.',
     detail:
-      'The perfect pick-me-up, packed with feel-good ingredients and all the flavour of a chocolate peanut butter treat — peanut butter, crisped rice, honey, dates, chocolate, protein, coconut oil & sea salt.',
+      'The perfect pick-me-up, packed with feel-good ingredients and all the flavour of a chocolate peanut butter treat.',
+    ingredients: [
+      'peanut butter',
+      'crisped rice',
+      'honey',
+      'dates',
+      'chocolate',
+      'protein',
+      'coconut oil',
+      'sea salt',
+    ],
     image: imgPBChocolate,
   },
   {
     title: 'Power protein shake',
     caption: 'Creamy, rich and packed with goodness.',
     detail:
-      'Chocolate, peanut butter and high-quality ingredients blended to support recovery, gut health and everyday energy.',
+      'Blended to support recovery, gut health and everyday energy.',
+    ingredients: ['chocolate', 'peanut butter', 'protein'],
     image: imgPower,
   },
   {
     title: 'Berry Blast protein shake',
     caption: 'Strawberries, banana & vanilla protein.',
-    detail:
-      'Blended with kefir, coconut milk and raspberry lemon compote — the ultimate refreshing shake.',
+    detail: 'Blended for the ultimate refreshing shake.',
+    ingredients: [
+      'strawberries',
+      'banana',
+      'kefir',
+      'coconut milk',
+      'vanilla protein',
+      'raspberry lemon compote',
+    ],
     image: imgBerryBlast,
   },
   {
@@ -119,13 +137,11 @@ export default function App() {
         <header className="site-header">
           <nav className="nav nav--left" aria-label="Primary">
             <a href="#menu">menu</a>
-            <a href="#story">story</a>
           </nav>
           <a href="#" className="logo logo--mark">
             the shake shed
           </a>
-          <nav className="nav nav--right" aria-label="Order & stockists">
-            <a href="#stockists">stockists</a>
+          <nav className="nav nav--right" aria-label="Order & Instagram">
             <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer">
               instagram
             </a>
@@ -184,13 +200,6 @@ export default function App() {
               <a href="#menu" className="btn btn--ghost">
                 See the menu
               </a>
-            </div>
-            <div id="story" className="wf-balance">
-              <p className="wf-balance__lead">Helping you get the balance right.</p>
-              <p className="wf-balance__sub">Protein balls that taste like a treat.</p>
-              <p className="wf-balance__body">
-                Juices that drive your routine and spice up your Friday night. Shake it up… put your own twist on them.
-              </p>
             </div>
           </div>
         </section>
@@ -266,12 +275,15 @@ export default function App() {
             <h3 className="wf-menu-all__heading">Full menu</h3>
             <ul className="wf-menu-all__list">
               {menuItems.map((item) => (
-                <li key={item.title}>
-                  <span className="wf-menu-all__name">{item.title}</span>
-                  <span className="wf-menu-all__sep" aria-hidden="true">
-                    —
-                  </span>
-                  <span className="wf-menu-all__detail">{item.detail}</span>
+                <li key={item.title} className="wf-menu-all__item">
+                  <p className="wf-menu-all__name">{item.title}</p>
+                  <p className="wf-menu-all__detail">{item.detail}</p>
+                  {'ingredients' in item && item.ingredients && (
+                    <p className="wf-menu-all__ingredients">
+                      <span className="wf-menu-all__ingredients-label">Ingredients: </span>
+                      {item.ingredients.join(', ')}
+                    </p>
+                  )}
                 </li>
               ))}
             </ul>
@@ -372,9 +384,6 @@ export default function App() {
           <ul className="footer__links">
             <li>
               <a href="#menu">menu</a>
-            </li>
-            <li>
-              <a href="#story">story</a>
             </li>
             <li>
               <a href="#stockists">stockists</a>
