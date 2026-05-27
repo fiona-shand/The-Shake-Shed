@@ -39,10 +39,19 @@ function productSlug(title: string): string {
 
 const menuItems = [
   {
-    title: 'Hydrate juice',
+    title: 'Hydrate smoothie',
     caption: 'Fresh, crisp and seriously refreshing.',
     detail:
       'Packed with natural electrolytes to leave you refreshed, recharged and wanting more with every sip.',
+    ingredients: [
+      'cucumber',
+      'pineapple',
+      'coconut water',
+      'sea salt',
+      'celery',
+      'green apple',
+      'lemon',
+    ],
     image: imgHydrate,
   },
   {
@@ -50,6 +59,15 @@ const menuItems = [
     caption: 'The perfect grab-and-go breakfast snack.',
     detail:
       'Packed with nourishing ingredients to keep you fuelled throughout your day — all the flavour of banana bread in one bite.',
+    ingredients: [
+      'oats',
+      'dates',
+      'cinnamon',
+      'honey',
+      'vanilla protein powder',
+      'banana',
+      'semi-sweet chocolate chips',
+    ],
     image: imgBananaBread,
   },
   {
@@ -62,8 +80,7 @@ const menuItems = [
       'crisped rice',
       'honey',
       'dates',
-      'chocolate',
-      'protein',
+      'chocolate protein powder',
       'coconut oil',
       'sea salt',
     ],
@@ -74,33 +91,45 @@ const menuItems = [
     caption: 'Creamy, rich and packed with goodness.',
     detail:
       'Blended to support recovery, gut health and everyday energy.',
-    ingredients: ['chocolate', 'peanut butter', 'protein'],
+    ingredients: [
+      'kefir',
+      'sea salt',
+      'peanut butter',
+      'oat milk',
+      'dates',
+      'chocolate protein powder',
+      'banana',
+      'cinnamon',
+    ],
     image: imgPower,
   },
   {
     title: 'Berry Blast protein shake',
-    caption: 'Strawberries, banana & vanilla protein.',
-    detail: 'Blended for the ultimate refreshing shake.',
+    caption: 'Bright, fruity and seriously refreshing.',
+    detail:
+      'Sweet strawberries and creamy coconut, with a bright hit of raspberry lemon — the ultimate refreshing shake.',
     ingredients: [
-      'strawberries',
-      'banana',
       'kefir',
+      'strawberries',
       'coconut milk',
-      'vanilla protein',
-      'raspberry lemon compote',
+      'dates',
+      'vanilla protein powder',
+      'banana',
+      'raspberry and lemon compote',
     ],
     image: imgBerryBlast,
   },
   {
-    title: 'Defence juice',
+    title: 'Defence smoothie',
     caption: 'Your go-to when you need a fresh start.',
     detail:
       'Made with powerful, feel-good ingredients to refresh and defend your body naturally — ideal when you’re under the weather or resetting your morning.',
+    ingredients: ['beetroot', 'ginger', 'carrot', 'orange', 'lime', 'sea salt', 'turmeric'],
     image: imgDefense,
   },
 ] as const
 
-const SHOWCASE_PRIMARY = ['Defence juice', 'Hydrate juice', 'Banana bread protein ball'] as const
+const SHOWCASE_PRIMARY = ['Defence smoothie', 'Hydrate smoothie', 'Banana bread protein ball'] as const
 const SHOWCASE_SECONDARY = [
   'Power protein shake',
   'Berry Blast protein shake',
