@@ -196,6 +196,24 @@
 }
 
 /* Wireframe landing — dual hero & balance strip */
+.sanity-dev-badge {
+  margin: 0;
+  padding: 0.55rem 1rem;
+  text-align: center;
+  font-family: var(--font-brand);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  color: #1a4d2e;
+  background: #e8f5ec;
+  border-bottom: 1px solid #b8dcc4;
+}
+
+.sanity-dev-badge--warn {
+  color: #6b4a1a;
+  background: #fdf3e3;
+  border-bottom-color: #ecd09a;
+}
+
 .wf-hero {
   background: var(--hero-bg);
   color: var(--hero-fg);

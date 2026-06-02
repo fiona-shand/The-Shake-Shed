@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/sanity-api/:path*",
+      "destination": "https://tpzpnz81.apicdn.sanity.io/:path*"
+    }
+  ]
+}

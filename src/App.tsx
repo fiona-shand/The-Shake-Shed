@@ -1,17 +1,9 @@
 import './App.css'
 
-import imgHydrate from './assets/hydrate.png'
-import imgBananaBread from './assets/bananabread.png'
-import imgPBChocolate from './assets/PBChocolate.png'
-import imgPower from './assets/power.png'
-import imgBerryBlast from './assets/berryblast.png'
-import imgDefense from './assets/defense.png'
-import imgHero from './assets/hero.png'
-import imgStack from './assets/stack.png'
-import imgModel from './assets/model.png'
-import imgModel2 from './assets/model2.png'
-import imgModel3 from './assets/model3.png'
-import imgModel4 from './assets/model4.png'
+import { useProducts } from './hooks/useProducts'
+import { useSiteImages } from './hooks/useSiteImages'
+import { productSlug } from './lib/products'
+import { isSanityConfigured } from './lib/sanity'
 
 /** Official Instagram — orders & updates */
 const INSTAGRAM_URL = 'https://www.instagram.com/theshakeshed_____/'
@@ -27,125 +19,21 @@ const STOCKISTS = [
   },
 ] as const
 
-function productSlug(title: string): string {
-  if (title.startsWith('Defence')) return 'defence'
-  if (title.startsWith('Hydrate')) return 'hydrate'
-  if (title.includes('Chocolate PB')) return 'chocolate pb'
-  if (title.includes('Banana bread')) return 'banana bread'
-  if (title.startsWith('Berry')) return 'berry blast'
-  if (title.startsWith('Power')) return 'power'
-  return title.toLowerCase()
-}
-
-const menuItems = [
-  {
-    title: 'Hydrate smoothie',
-    caption: 'Fresh, crisp and seriously refreshing.',
-    detail:
-      'Packed with natural electrolytes to leave you refreshed, recharged and wanting more with every sip.',
-    ingredients: [
-      'cucumber',
-      'pineapple',
-      'coconut water',
-      'sea salt',
-      'celery',
-      'green apple',
-      'lemon',
-    ],
-    image: imgHydrate,
-  },
-  {
-    title: 'Banana bread protein ball',
-    caption: 'The perfect grab-and-go breakfast snack.',
-    detail:
-      'Packed with nourishing ingredients to keep you fuelled throughout your day — all the flavour of banana bread in one bite.',
-    ingredients: [
-      'oats',
-      'dates',
-      'cinnamon',
-      'honey',
-      'vanilla protein powder',
-      'banana',
-      'semi-sweet chocolate chips',
-    ],
-    image: imgBananaBread,
-  },
-  {
-    title: 'Chocolate PB protein ball',
-    caption: 'Need an afternoon sweet treat without the crash? We got you.',
-    detail:
-      'The perfect pick-me-up, packed with feel-good ingredients and all the flavour of a chocolate peanut butter treat.',
-    ingredients: [
-      'peanut butter',
-      'crisped rice',
-      'honey',
-      'dates',
-      'chocolate protein powder',
-      'coconut oil',
-      'sea salt',
-    ],
-    image: imgPBChocolate,
-  },
-  {
-    title: 'Power protein shake',
-    caption: 'Creamy, rich and packed with goodness.',
-    detail:
-      'Blended to support recovery, gut health and everyday energy.',
-    ingredients: [
-      'kefir',
-      'sea salt',
-      'peanut butter',
-      'oat milk',
-      'dates',
-      'chocolate protein powder',
-      'banana',
-      'cinnamon',
-    ],
-    image: imgPower,
-  },
-  {
-    title: 'Berry Blast protein shake',
-    caption: 'Bright, fruity and seriously refreshing.',
-    detail:
-      'Sweet strawberries and creamy coconut, with a bright hit of raspberry lemon — the ultimate refreshing shake.',
-    ingredients: [
-      'kefir',
-      'strawberries',
-      'coconut milk',
-      'dates',
-      'vanilla protein powder',
-      'banana',
-      'raspberry and lemon compote',
-    ],
-    image: imgBerryBlast,
-  },
-  {
-    title: 'Defence smoothie',
-    caption: 'Your go-to when you need a fresh start.',
-    detail:
-      'Made with powerful, feel-good ingredients to refresh and defend your body naturally — ideal when you’re under the weather or resetting your morning.',
-    ingredients: ['beetroot', 'ginger', 'carrot', 'orange', 'lime', 'sea salt', 'turmeric'],
-    image: imgDefense,
-  },
-] as const
-
-const SHOWCASE_PRIMARY = ['Defence smoothie', 'Hydrate smoothie', 'Banana bread protein ball'] as const
-const SHOWCASE_SECONDARY = [
-  'Power protein shake',
-  'Berry Blast protein shake',
-  'Chocolate PB protein ball',
-] as const
-
 export default function App() {
-  const primaryFeatured = SHOWCASE_PRIMARY.map((t) => menuItems.find((m) => m.title === t)!)
-  const secondaryFeatured = SHOWCASE_SECONDARY.map((t) => menuItems.find((m) => m.title === t)!)
+  const { products, primaryFeatured, secondaryFeatured, loading, source } = useProducts()
+  const {
+    heroImages,
+    wildShots,
+    loading: imagesLoading,
+    source: imagesSource,
+  } = useSiteImages()
 
-  const wildShots = [
-    { src: imgModel, alt: 'The Shake Shed — out in the wild' },
-    { src: imgModel3, alt: 'The Shake Shed lifestyle' },
-    { src: imgModel2, alt: 'The Shake Shed in everyday moments' },
-    { src: imgModel4, alt: 'Sharing The Shake Shed' },
-  ] as const
+  const menuFromSanity = source === 'sanity'
+  const imagesFromSanity = imagesSource === 'sanity'
+  const contentPartial =
+    !loading && !imagesLoading && isSanityConfigured && menuFromSanity && !imagesFromSanity
+  const contentMissing =
+    !loading && !imagesLoading && isSanityConfigured && !menuFromSanity
 
   return (
     <div className="page">
@@ -179,31 +67,32 @@ export default function App() {
       </div>
 
       <main id="main">
+        {import.meta.env.DEV && contentPartial && (
+          <p className="sanity-dev-badge sanity-dev-badge--warn" aria-live="polite">
+            Menu from Sanity — open Studio → Site images to manage hero &amp; lifestyle photos.
+          </p>
+        )}
+        {import.meta.env.DEV && contentMissing && (
+          <p className="sanity-dev-badge sanity-dev-badge--warn" aria-live="polite">
+            Sanity menu unavailable — check env vars and published products in Studio.
+          </p>
+        )}
         {/* Wireframe hero: dual lifestyle images + centred intro */}
         <section className="wf-hero" aria-labelledby="wf-intro-heading">
           <div className="wf-hero__dual">
-            <figure className="wf-hero__figure">
-              <img
-                src={imgHero}
-                alt="The Shake Shed"
-                className="wf-hero__img"
-                width={900}
-                height={1125}
-                decoding="async"
-                fetchPriority="high"
-              />
-            </figure>
-            <figure className="wf-hero__figure">
-              <img
-                src={imgStack}
-                alt="The Shake Shed — The Stack Shed & stockists"
-                className="wf-hero__img"
-                width={900}
-                height={1125}
-                decoding="async"
-                fetchPriority="high"
-              />
-            </figure>
+            {heroImages.map((shot, index) => (
+              <figure key={`${shot.altText}-${index}`} className="wf-hero__figure">
+                <img
+                  src={shot.imageUrl}
+                  alt={shot.altText}
+                  className="wf-hero__img"
+                  width={900}
+                  height={1125}
+                  decoding="async"
+                  fetchPriority="high"
+                />
+              </figure>
+            ))}
           </div>
           <div className="wf-hero__below">
             <h1 id="wf-intro-heading" className="visually-hidden">
@@ -266,9 +155,9 @@ export default function App() {
           </h2>
           <div className="wf-showcase">
             {primaryFeatured.map((item) => (
-              <article key={item.title} className="wf-card">
+              <article key={item.id} className="wf-card">
                 <div className="wf-card__media">
-                  <img src={item.image} alt={`${item.title}`} width={640} height={720} loading="lazy" decoding="async" />
+                  <img src={item.imageUrl} alt={item.title} width={640} height={720} loading="lazy" decoding="async" />
                 </div>
                 <header className="wf-card__head">
                   <h3 className="wf-card__title">{productSlug(item.title)}</h3>
@@ -279,11 +168,11 @@ export default function App() {
           </div>
           <div className="wf-showcase wf-showcase--secondary">
             {secondaryFeatured.map((item) => (
-              <article key={item.title} className="wf-card wf-card--compact">
+              <article key={item.id} className="wf-card wf-card--compact">
                 <div
                   className={`wf-card__media${item.title.startsWith('Power') ? ' wf-card__media--power' : ''}${item.title.startsWith('Berry') ? ' wf-card__media--anchor-bottom' : ''}`}
                 >
-                  <img src={item.image} alt={`${item.title}`} width={640} height={720} loading="lazy" decoding="async" />
+                  <img src={item.imageUrl} alt={item.title} width={640} height={720} loading="lazy" decoding="async" />
                 </div>
                 <header className="wf-card__head">
                   <h3 className="wf-card__title">{productSlug(item.title)}</h3>
@@ -303,8 +192,8 @@ export default function App() {
           <div id="full-menu" className="wf-menu-all">
             <h3 className="wf-menu-all__heading">Full menu</h3>
             <ul className="wf-menu-all__list">
-              {menuItems.map((item) => (
-                <li key={item.title} className="wf-menu-all__item">
+              {products.map((item) => (
+                <li key={item.id} className="wf-menu-all__item">
                   <p className="wf-menu-all__name">{item.title}</p>
                   <p className="wf-menu-all__detail">{item.detail}</p>
                   {'ingredients' in item && item.ingredients && (
@@ -329,9 +218,16 @@ export default function App() {
             </a>
           </div>
           <ul className="wf-social__grid">
-            {wildShots.map((shot) => (
-              <li key={shot.alt} className="wf-social__cell">
-                <img src={shot.src} alt={shot.alt} width={560} height={560} loading="lazy" decoding="async" />
+            {wildShots.map((shot, index) => (
+              <li key={`${shot.altText}-${index}`} className="wf-social__cell">
+                <img
+                  src={shot.imageUrl}
+                  alt={shot.altText}
+                  width={560}
+                  height={560}
+                  loading="lazy"
+                  decoding="async"
+                />
               </li>
             ))}
           </ul>

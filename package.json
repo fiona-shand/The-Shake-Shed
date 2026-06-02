@@ -8,9 +8,15 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview --host",
-    "deploy:netlify": "npm run build && npx netlify-cli deploy --prod --dir=dist"
+    "deploy:netlify": "npm run build && npx netlify-cli deploy --prod --dir=dist",
+    "studio": "npm run dev --prefix studio",
+    "studio:build": "npm run build --prefix studio",
+    "studio:deploy": "npm run deploy --prefix studio",
+    "test:sanity": "node scripts/test-sanity-browser.mjs"
   },
   "dependencies": {
+    "@sanity/client": "^7.8.0",
+    "@sanity/image-url": "^1.1.0",
     "react": "^19.2.6",
     "react-dom": "^19.2.6"
   },
@@ -24,6 +30,7 @@
     "eslint-plugin-react-hooks": "^7.1.1",
     "eslint-plugin-react-refresh": "^0.5.2",
     "globals": "^17.6.0",
+    "playwright": "^1.49.1",
     "typescript": "~6.0.2",
     "typescript-eslint": "^8.59.2",
     "vite": "^8.0.12"
