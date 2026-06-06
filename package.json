@@ -11,7 +11,7 @@
     "deploy:netlify": "npm run build && npx netlify-cli deploy --prod --dir=dist",
     "studio": "npm run dev --prefix studio",
     "studio:build": "npm run build --prefix studio",
-    "studio:deploy": "npm run deploy --prefix studio",
+    "studio:deploy": "npm run deploy --prefix studio -- --yes",
     "test:sanity": "node scripts/test-sanity-browser.mjs"
   },
   "dependencies": {

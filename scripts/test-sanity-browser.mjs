@@ -51,11 +51,10 @@ console.log('Full menu snippet:', fullMenuText.slice(0, 200).replace(/\n/g, ' | 
 const ok =
   logs.some((l) => l.includes('[menu] Loaded from Sanity')) &&
   logs.some((l) => l.includes('[site images] Loaded from Sanity')) &&
-  menuSanityImages === 6 &&
-  heroSanityImages === 2 &&
-  wildSanityImages === 4 &&
-  localAssetImages === 0 &&
-  fullMenuText.includes('!!!!')
+  menuSanityImages > 0 &&
+  heroSanityImages > 0 &&
+  wildSanityImages > 0 &&
+  localAssetImages === 0
 
 console.log('RESULT:', ok ? 'PASS — Sanity is driving the site' : 'FAIL — still on fallback or stale data')
 

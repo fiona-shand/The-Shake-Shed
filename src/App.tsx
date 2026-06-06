@@ -3,7 +3,6 @@ import './App.css'
 import { useProducts } from './hooks/useProducts'
 import { useSiteImages } from './hooks/useSiteImages'
 import { productSlug } from './lib/products'
-import { isSanityConfigured } from './lib/sanity'
 
 /** Official Instagram — orders & updates */
 const INSTAGRAM_URL = 'https://www.instagram.com/theshakeshed_____/'
@@ -20,20 +19,8 @@ const STOCKISTS = [
 ] as const
 
 export default function App() {
-  const { products, primaryFeatured, secondaryFeatured, loading, source } = useProducts()
-  const {
-    heroImages,
-    wildShots,
-    loading: imagesLoading,
-    source: imagesSource,
-  } = useSiteImages()
-
-  const menuFromSanity = source === 'sanity'
-  const imagesFromSanity = imagesSource === 'sanity'
-  const contentPartial =
-    !loading && !imagesLoading && isSanityConfigured && menuFromSanity && !imagesFromSanity
-  const contentMissing =
-    !loading && !imagesLoading && isSanityConfigured && !menuFromSanity
+  const { products, primaryFeatured, secondaryFeatured } = useProducts()
+  const { heroImages, wildShots } = useSiteImages()
 
   return (
     <div className="page">
@@ -67,16 +54,6 @@ export default function App() {
       </div>
 
       <main id="main">
-        {import.meta.env.DEV && contentPartial && (
-          <p className="sanity-dev-badge sanity-dev-badge--warn" aria-live="polite">
-            Menu from Sanity — open Studio → Site images to manage hero &amp; lifestyle photos.
-          </p>
-        )}
-        {import.meta.env.DEV && contentMissing && (
-          <p className="sanity-dev-badge sanity-dev-badge--warn" aria-live="polite">
-            Sanity menu unavailable — check env vars and published products in Studio.
-          </p>
-        )}
         {/* Wireframe hero: dual lifestyle images + centred intro */}
         <section className="wf-hero" aria-labelledby="wf-intro-heading">
           <div className="wf-hero__dual">

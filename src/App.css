@@ -222,7 +222,7 @@
 
 .wf-hero__dual {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
   gap: 0;
   max-width: min(960px, 94vw);
   margin: 0 auto;
@@ -236,19 +236,23 @@
 
 .wf-hero__img {
   width: 100%;
-  aspect-ratio: 3 / 4;
-  max-height: min(640px, 72vh);
+  aspect-ratio: 2 / 3;
+  max-height: min(780px, 82vh);
   object-fit: cover;
   object-position: center;
   display: block;
   border: 1px solid var(--color-border);
 }
 
-.wf-hero__dual .wf-hero__figure:first-child .wf-hero__img {
+.wf-hero__dual .wf-hero__figure:only-child .wf-hero__img {
+  border-radius: var(--radius-lg);
+}
+
+.wf-hero__dual .wf-hero__figure:first-child:not(:only-child) .wf-hero__img {
   border-radius: var(--radius-lg) 0 0 var(--radius-lg);
 }
 
-.wf-hero__dual .wf-hero__figure:last-child .wf-hero__img {
+.wf-hero__dual .wf-hero__figure:last-child:not(:only-child) .wf-hero__img {
   border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
 }
 
@@ -472,18 +476,18 @@
 
 .wf-showcase {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
   align-items: start;
   gap: clamp(1rem, 3vw, 1.5rem);
-  max-width: min(760px, 94vw);
+  max-width: min(1100px, 94vw);
   margin-inline: auto;
   margin-bottom: clamp(1.5rem, 4vw, 2.25rem);
 }
 
 .wf-showcase--secondary {
   align-items: start;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  max-width: min(760px, 94vw);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
+  max-width: min(1100px, 94vw);
   margin-inline: auto;
 }
 
@@ -528,8 +532,8 @@
   flex-shrink: 0;
   background: var(--color-bg-muted);
   width: 100%;
-  aspect-ratio: 4 / 5;
-  max-height: min(260px, 38vw);
+  aspect-ratio: 2 / 3;
+  max-height: min(380px, 48vw);
 }
 
 .wf-card__media img {
@@ -689,13 +693,13 @@
   margin: 0;
   padding: 0;
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 160px), 1fr));
   gap: clamp(0.65rem, 2vw, 1rem);
 }
 
 .wf-social__cell img {
   width: 100%;
-  aspect-ratio: 1;
+  aspect-ratio: 3 / 4;
   object-fit: cover;
   border-radius: var(--radius-sm);
   border: 1px solid var(--color-border);

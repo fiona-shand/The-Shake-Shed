@@ -52,9 +52,9 @@ export const product = defineType({
       type: 'string',
       options: {
         list: [
-          { title: 'Top row (3 cards)', value: 'primary' },
-          { title: 'Second row (3 cards)', value: 'secondary' },
-          { title: 'Full menu only', value: 'none' },
+          { title: 'Top showcase row', value: 'primary' },
+          { title: 'Second showcase row', value: 'secondary' },
+          { title: 'Full menu only (no card)', value: 'none' },
         ],
         layout: 'radio',
       },

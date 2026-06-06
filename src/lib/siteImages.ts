@@ -49,12 +49,9 @@ function mapSiteImages(record: SanitySiteImagesRecord | null): SiteImages | null
     .map(mapImage)
     .filter((image): image is SiteImage => image !== null)
 
-  if (heroImages.length < 2 || wildShots.length < 4) return null
+  if (heroImages.length === 0 && wildShots.length === 0) return null
 
-  return {
-    heroImages: heroImages.slice(0, 2),
-    wildShots: wildShots.slice(0, 4),
-  }
+  return { heroImages, wildShots }
 }
 
 export async function fetchSiteImages(): Promise<SiteImages | null> {

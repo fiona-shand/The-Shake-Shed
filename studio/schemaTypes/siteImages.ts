@@ -33,15 +33,14 @@ export const siteImages = defineType({
     defineField({
       name: 'heroImages',
       title: 'Hero images',
-      description: 'Two large photos at the top of the homepage (left, then right).',
+      description: 'Large photos at the top of the homepage. Add, remove, or reorder as needed.',
       type: 'array',
       of: [imageWithAlt],
-      validation: (rule) => rule.min(2).max(2),
     }),
     defineField({
       name: 'wildShots',
       title: 'In the wild',
-      description: 'Four lifestyle photos in the “the shake shed in the wild” grid.',
+      description: 'Lifestyle photos in the “the shake shed in the wild” grid. Add, remove, or reorder as needed.',
       type: 'array',
       of: [
         defineArrayMember({
@@ -82,7 +81,6 @@ export const siteImages = defineType({
           },
         }),
       ],
-      validation: (rule) => rule.min(4).max(4),
     }),
   ],
 })
